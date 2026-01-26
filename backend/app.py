@@ -14,6 +14,16 @@ MODEL_DIR = os.path.join(BASE_DIR, "..", "model")
 model = joblib.load(os.path.join(MODEL_DIR, "logistic_model.pkl"))
 scaler = joblib.load(os.path.join(MODEL_DIR, "scaler.pkl"))
 
+@app.route("/")
+def index():
+    return jsonify({
+        "message": "Cardiovascular Disease Prediction API is live!",
+        "endpoints": {
+            "POST /predict": "Send JSON data to get prediction",
+            "GET /health": "Check if the service is running"
+        }
+    })
+
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.get_json()
